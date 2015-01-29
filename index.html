@@ -14,17 +14,26 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="results alert alert-success"></div>
-					<form id="myForm" method="post" action="form.php">
-						<div class="form-group">
-							<label for="date">Date</label><br/>
-							<input type="date" id="date" class="form-control" name="date"><br />
-							<label for="time">time</label><br/>
-							<input type="time" id="time" class="form-control" name="time"><br />
-						</div>
-						<input type="submit" id="submit" name="submit" class="btn-block" value="Submit">
-					</form>
+					<div class="panel panel-default">
+						
+							<div class="panel-heading">
+								<h2 class="panel-title"><strong>Add Show</strong></h2>
+							</div>
+							<div class="panel-body">
+								<form id="myForm" method="post" action="form.php">
+									<div class="form-group">
+										<label for="date">Date</label><br/>
+										<input type="date" id="date" class="form-control" name="date"><br />
+										<label for="time">Time</label><br/>
+										<input type="time" id="time" class="form-control" name="time"><br />
+									</div>
+									<input type="submit" id="submit" name="submit" class="btn-block" value="Submit">
+								</form>
+							</div>
+						
+					</div>
 				</div>
 			</div>
 		</div>
@@ -43,7 +52,7 @@
 				posting.success(function(data){
 					$('.results').html(
 						"You've succesfully added "+ data + "<br />"
-						+ "<a href='$('#myForm'.show()'>View HomePage</a>");
+						+ "<a href='#'>View HomePage</a>");
 					$('.results').show();
 				});
 			});
