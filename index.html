@@ -15,7 +15,7 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="results alert alert-success"></div>
 					<div class="panel panel-default">
 						
@@ -26,10 +26,10 @@
 								<form id="myForm" method="post" action="form.php">
 									<div class="form-group">
 										<label for="date">Date</label><br/>
-										<input type="date" id="date" class="form-control" name="date"><br />
+										<input type="date" id="date" class="form-control" name="date" required><br />
 										<label for="time">Time</label><br/>
 										<div class="form-inline">
-											<select class="form-control">
+											<select id="hour" name="hour" class="form-control" required>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -44,30 +44,32 @@
 												<option value="12">12</option>
 											</select>
 											:
-											<select name="minute" id="minute" class="form-control">
+											<select name="minute" id="minute" class="form-control" required>
 												<option value="00">00</option>
 												<option value="15">15</option>
 												<option value="30">30</option>
 												<option value="45">45</option>
 											</select>
-											<select name="period" id="period" class="form-control">
+											<select name="period" id="period" class="form-control" required>
 												<option value="AM">AM</option>
 												<option value="PM">PM</option>
 											</select>
 										</div><br />
 										<label for="date">Venue Name</label><br/>
-										<input type="text" id="venue" class="form-control" name="venue"><br />
+										<input type="text" id="venue" class="form-control" name="venue" maxlength="40" required><br />
 										<label for="date">Cost</label><br/>
 										<div class="input-group">
 											<div class="input-group-addon">$</div>
-											<input type="text" id="cost" class="form-control" name="cost">
-										</div><br />
+											<input type="text" id="cost" class="form-control" name="cost" maxlength="2" required>
+											<div class="input-group-addon">.00</div>
+										</div>
+										<input type="checkbox">&nbsp;Free<br /><br />
 
 										<label for="city">City</label><br/>
-										<input type="text" id="city" class="form-control" name="city"><br />
+										<input type="text" id="city" class="form-control" name="city" maxlength="22" required><br />
 
 										<label for="state">State</label><br />
-										<select id="state" name="state" class="form-control">
+										<select id="state" name="state" class="form-control" required>
 											<option value="AL">Alabama</option>
 											<option value="AK">Alaska</option>
 											<option value="AZ">Arizona</option>
@@ -122,7 +124,7 @@
 										</select>				<br />
 		
 									</div>
-									<input type="submit" id="submit" name="submit" class="btn-block" value="Submit">
+									<input type="submit" id="submit" name="submit" class="btn btn-block btn-primary" value="Submit">
 								</form>
 							</div>
 						
@@ -140,12 +142,23 @@
 				var url = $form.attr('action');
 
 				
-				var posting = $.post( url, { date: $('#date').val(), time: $('#time').val() });
+				var posting = $.post( url, { 
+					date: $('#date').val(), 
+					time: $('#time').val(), 
+					minute: $('#minute option:selected').val(), 
+					hour: $('#hour option:selected').val(), 
+					period: $('#period option:selected').val(), 
+					cost: $('#cost').val(), 
+					city: $('#city').val(), 
+					state: $('#state option:selected').val(),
+					venue: $('#venue').val()
+
+
+				});
 
 				posting.success(function(data){
 					$('.results').html(
-						"You've succesfully added "+ data + "<br />"
-						+ "<a href='#'>View HomePage</a>");
+						data + " <a href='#'>View Homepage</a>");
 					$('.results').show();
 				});
 			});
