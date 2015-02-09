@@ -3,20 +3,24 @@
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<style>
-			.results{
+			.results, .error{
 				display:none;
 			}
 			.container{
 				padding-top: 100px;
 				padding-bottom: 100px;
 			}
+			#myForm input[type="checkbox"]{
+				margin-top:15px;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="container">
+		<div id="form-container" class="container">
 			<div class="row">
 				<div class="col-md-4">
 					<div class="results alert alert-success"></div>
+					<div class="error alert alert-danger"></div>
 					<div class="panel panel-default">
 						
 							<div class="panel-heading">
@@ -63,7 +67,7 @@
 											<input type="text" id="cost" class="form-control" name="cost" maxlength="2" required>
 											<div class="input-group-addon">.00</div>
 										</div>
-										<input type="checkbox">&nbsp;Free<br /><br />
+										<input id="free_checkbox" type="checkbox">&nbsp;Free<br /><br />
 
 										<label for="city">City</label><br/>
 										<input type="text" id="city" class="form-control" name="city" maxlength="22" required><br />
@@ -134,35 +138,7 @@
 		</div>
 
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-		<script type="text/javascript">
-
-			$("#myForm").submit(function(event){
-				event.preventDefault();
-				var $form = $( this )
-				var url = $form.attr('action');
-
-				
-				var posting = $.post( url, { 
-					date: $('#date').val(), 
-					time: $('#time').val(), 
-					minute: $('#minute option:selected').val(), 
-					hour: $('#hour option:selected').val(), 
-					period: $('#period option:selected').val(), 
-					cost: $('#cost').val(), 
-					city: $('#city').val(), 
-					state: $('#state option:selected').val(),
-					venue: $('#venue').val()
-
-
-				});
-
-				posting.success(function(data){
-					$('.results').html(
-						data + " <a href='#'>View Homepage</a>");
-					$('.results').show();
-				});
-			});
-		</script>
+		<script type="text/javascript" src="script.js"></script>
 		
 	</body>
 </html>
