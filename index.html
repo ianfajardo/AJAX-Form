@@ -13,6 +13,12 @@
 			#myForm input[type="checkbox"]{
 				margin-top:15px;
 			}
+			.time-select select{
+				width:30%;
+				display:inline-block;
+				padding-left: 6px; 
+				padding-right: 6px;
+			}
 		</style>
 	</head>
 	<body>
@@ -32,7 +38,7 @@
 										<label for="date">Date</label><br/>
 										<input type="date" id="date" class="form-control" name="date" required><br />
 										<label for="time">Time</label><br/>
-										<div class="form-inline">
+										<div class="form-inline time-select">
 											<select id="hour" name="hour" class="form-control" required>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -64,7 +70,7 @@
 										<label for="date">Cost</label><br/>
 										<div class="input-group">
 											<div class="input-group-addon">$</div>
-											<input type="text" id="cost" class="form-control" name="cost" maxlength="2" required>
+											<input type="text" id="cost" class="form-control" name="cost" maxlength="22" required>
 											<div class="input-group-addon">.00</div>
 										</div>
 										<input id="free_checkbox" type="checkbox">&nbsp;Free<br /><br />

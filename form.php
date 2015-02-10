@@ -8,6 +8,7 @@ $city = htmlspecialchars($_POST["city"]);
 $state = htmlspecialchars($_POST["state"]);
 $venue = htmlspecialchars($_POST["venue"]);
 
+//add code to add to the database
 echo "Added your show at " . $venue . " on " . $date . " @ " . $hour . ":" . $minute . $period .
 		" in " . $city . ", " . $state . " costing $" . $cost . "."
 ?>

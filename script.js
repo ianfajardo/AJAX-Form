@@ -16,8 +16,48 @@
 			venue: $('#venue').val()
 		};
 
+		var maxLengthArr = {
+			cost: 2,
+			venue: 40
+		}
+
+		//return a tuple with true or false and a errorString if false
+		function formValidate(valArray, maxLengthArray){
+			var errorString = "";
+			//form input max length check
+			function validLengthCheck(input, maxLength){
+				if( input.length <= maxLength){
+					return true;
+				}
+				return false;
+			}
+
+			//requiredCheck make sure that a required field is put in adding in null checks
+			function requiredCheck(input, maxLength){
+						 if(validLengthCheck(input, maxLength) &&
+						 	input != null &&
+							input != undefined &&
+							input != ""){
+						 	return true;
+						 }
+						 return false;
+					}
+
+			for(var i in valArray){
+				for(var j in maxLengthArray){
+					if(i == j){
+						delete maxLengthArray.j;
+						if(!validLengthCheck(valArray[i], maxLengthArray[j])){
+							return false;
+						}
+					}
+				}
+			}
+			return true;
+		}
+
 		//client-side error handling
-		if( !$.isNumeric(valArr.cost)){
+		if( !$.isNumeric(valArr.cost) && !formValidate(valArr, maxLengthArr)){
 			$('.results').hide();
 			var errorString = '';
 			errorString += ( isNaN(cost) ? "Error: Cost must be a Number" : '');
