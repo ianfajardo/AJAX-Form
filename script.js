@@ -19,9 +19,15 @@
 		var maxLengthArr = {
 			cost: 2,
 			venue: 40
-		}
+		};
 
-		//return a tuple with true or false and a errorString if false
+		var numArr = [
+			"minute",
+			"hour",
+			"cost"
+		];
+
+		
 		function formValidate(valArray, maxLengthArray){
 			var errorString = "";
 			//form input max length check
@@ -56,8 +62,22 @@
 			return true;
 		}
 
+		function numCheck(valArray, numArray){
+			for(var i in numArray){
+				for(var j in valArray){
+					if(i == valArray[j]){
+						console.log(i + ":" + valArray[j]);
+						if($.isNumeric(numArray[i])){
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+
 		//client-side error handling
-		if( !$.isNumeric(valArr.cost) && !formValidate(valArr, maxLengthArr)){
+		if( !$.isNumeric(valArr.cost) || !formValidate(valArr, maxLengthArr) || !numCheck(valArr, numArr)){
 			$('.results').hide();
 			var errorString = '';
 			errorString += ( isNaN(cost) ? "Error: Cost must be a Number" : '');
@@ -81,7 +101,7 @@
 	});
 
 	$("#free_checkbox").change(function(){
-		var c = this.checked ? '0' : '';
+		var c = $(this).checked ? '0' : '';
 		$("#cost").val(c);
 		if(c != '0'){
 			$("#cost").prop("disabled", false);
@@ -89,6 +109,17 @@
 		else if(c == '0'){
 			$("#cost").prop("disabled", true);
 		}
+	});
+
+	$("#cost").keydown(function(e){
+		if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+            (e.keyCode == 65 && e.ctrlKey === true) || 
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 return;
+        }
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
 	});
 
 	$("#cost").blur(function(){
